@@ -75,7 +75,21 @@ class LuminaConfig:
         """Validate configuration."""
         api_key = self.get_api_key()
         if not api_key:
-            raise ValueError(f"API key not found for provider: {self.provider}")
+            provider_name = self.provider.upper()
+            env_key_map = {
+                "openai": "OPENAI_API_KEY",
+                "anthropic": "ANTHROPIC_API_KEY",
+                "google": "GOOGLE_API_KEY",
+                "groq": "GROQ_API_KEY",
+            }
+            env_key = env_key_map.get(self.provider, f"{self.provider.upper()}_API_KEY")
+            
+            error_msg = (
+                f"API key not found for provider: {provider_name}\n\n"
+                f"Please set the environment variable: {env_key}\n"
+                f"Or run: python -m lumina.wizard"
+            )
+            raise ValueError(error_msg)
         
         # Create required directories
         self.log_dir.mkdir(parents=True, exist_ok=True)

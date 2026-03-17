@@ -43,6 +43,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Example scripts
 - MIT License
 
+## [1.1.0] - 2026-03-17
+
+### Added
+- Interactive setup wizard (`python -m lumina.wizard`)
+- Multi-LLM support via LiteLLM provider
+- Support for OpenAI, Anthropic, Google, Groq, and 100+ other providers
+- Enhanced CLI with `--setup` and `--wizard` flags
+- Improved error messages with actionable guidance
+- Configuration validation and testing in wizard
+
+### Changed
+- Updated QUICKSTART.md to recommend setup wizard
+- Enhanced error messages in config validation
+- Better provider detection and handling
+
+### Fixed
+- API key validation now provides helpful error messages
+- Missing environment variable handling with suggestions
+
 ## [Unreleased]
 
 ### Planned for v1.1.0

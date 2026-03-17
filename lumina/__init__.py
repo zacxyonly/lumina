@@ -4,7 +4,7 @@ Lumina - Lightweight AI Agent Framework
 A simple, powerful, and extensible autonomous AI agent system.
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __author__ = "Mundai"
 __license__ = "MIT"
 
