@@ -6,7 +6,7 @@ Get up and running with Lumina in 5 minutes!
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/lumina.git
+git clone https://github.com/zacxyonly/lumina.git
 cd lumina
 
 # Create virtual environment

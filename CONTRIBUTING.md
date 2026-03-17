@@ -34,7 +34,7 @@ Thank you for your interest in contributing to Lumina! This document provides gu
 
 1. **Fork and Clone**
    ```bash
-   git clone https://github.com/yourusername/lumina.git
+   git clone https://github.com/zacxyonly/lumina.git
    cd lumina
    ```
 
