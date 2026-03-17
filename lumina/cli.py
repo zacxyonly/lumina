@@ -9,6 +9,11 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.markdown import Markdown
 from rich.prompt import Prompt
+
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+
 from lumina import Lumina
 from lumina.utils.config import LuminaConfig, set_config
 from lumina.utils.logger import setup_logging

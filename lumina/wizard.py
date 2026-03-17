@@ -10,6 +10,10 @@ from rich.prompt import Prompt, Confirm
 from rich.table import Table
 from rich.markdown import Markdown
 
+# Load environment variables
+from dotenv import load_dotenv
+load_dotenv()
+
 console = Console()
 
 # Provider configurations
