@@ -20,24 +20,39 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-## Configuration
+## Configuration (Interactive Setup)
+
+The easiest way to configure Lumina is using the interactive setup wizard:
+
+```bash
+python -m lumina.wizard
+```
+
+This will guide you through:
+- Selecting your LLM provider (OpenAI, Anthropic, Google, Groq, etc.)
+- Entering your API key
+- Choosing a model
+- Configuring agent settings
+- Testing the configuration
+
+### Manual Configuration
+
+If you prefer manual setup:
 
 1. **Copy environment template**
    ```bash
    cp .env.example .env
    ```
 
-2. **Add your API key**
-   
-   Edit `.env` and add your OpenAI or Anthropic API key:
+2. **Edit `.env` and add your API key**
    ```env
    LUMINA_PROVIDER=openai
    OPENAI_API_KEY=sk-your-key-here
    ```
 
-3. **Test configuration**
+3. **Verify configuration**
    ```bash
-   python -c "from lumina import Lumina; print('Config OK!')"
+   python -m lumina.cli --verbose
    ```
 
 ## Basic Usage
@@ -51,8 +66,8 @@ python -m lumina.cli "List all Python files in this directory"
 # Interactive mode
 python -m lumina.cli
 
-# With specific provider
-python -m lumina.cli --provider anthropic "Summarize README.md"
+# With specific model
+python -m lumina.cli --provider anthropic --model claude-3-5-sonnet "Your task here"
 ```
 
 ### Python Script
@@ -71,6 +86,16 @@ async def main():
 
 asyncio.run(main())
 ```
+
+## Supported Providers
+
+Lumina supports multiple LLM providers:
+
+- **OpenAI**: GPT-4, GPT-4 Turbo, GPT-3.5-Turbo
+- **Anthropic**: Claude 3, Claude 3.5 Sonnet
+- **Google**: Gemini Pro
+- **Groq**: Mixtral, Llama 2
+- **Plus many more via LiteLLM**
 
 ## Common Tasks
 
@@ -136,19 +161,12 @@ agent = Lumina(tools=[WeatherTool()])
    python -m lumina.cli --max-iterations 20 "Complex multi-step task"
    ```
 
-## Next Steps
-
-- Read the full [README.md](README.md)
-- Check [examples/basic_usage.py](examples/basic_usage.py)
-- Learn about [custom tools](CONTRIBUTING.md#adding-new-tools)
-- Explore the [API documentation](#)
-
 ## Troubleshooting
 
 ### "API key not found"
-- Check your `.env` file exists
-- Verify API key is correct
-- Ensure you've selected the right provider
+- Run `python -m lumina.wizard` for interactive setup
+- Or check your `.env` file and verify the API key is set
+- Ensure you've selected the correct provider
 
 ### "Module not found"
 - Activate virtual environment
@@ -159,10 +177,19 @@ agent = Lumina(tools=[WeatherTool()])
 - Break task into smaller steps
 - Check if tools are working correctly
 
+## Next Steps
+
+- **Setup wizard** (recommended): `python -m lumina.wizard`
+- Read the full [README.md](README.md)
+- Check [examples/basic_usage.py](examples/basic_usage.py)
+- Explore the [API documentation](docs/API.md)
+- See [production features](docs/PRODUCTION_FEATURES.md)
+
 ## Need Help?
 
-- GitHub Issues: [Report bugs](https://github.com/yourusername/lumina/issues)
-- Discussions: [Ask questions](https://github.com/yourusername/lumina/discussions)
-- Examples: [See more examples](examples/)
+- **Setup issues**: Run `python -m lumina.wizard`
+- **GitHub Issues**: [Report bugs](https://github.com/zacxyonly/lumina/issues)
+- **Discussions**: [Ask questions](https://github.com/zacxyonly/lumina/discussions)
+- **Examples**: [See more examples](examples/)
 
 Happy building with Lumina! 🌟

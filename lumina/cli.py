@@ -21,7 +21,7 @@ def print_banner():
     banner = """
     ╔═══════════════════════════════════════╗
     ║                                       ║
-    ║        🌟  LUMINA v1.0.0  🌟         ║
+    ║        🌟  LUMINA v1.1.0  🌟         ║
     ║   Lightweight AI Agent Framework      ║
     ║                                       ║
     ╚═══════════════════════════════════════╝
@@ -95,9 +95,19 @@ async def main():
         help="Task to execute (omit for interactive mode)"
     )
     parser.add_argument(
+        "--setup",
+        action="store_true",
+        help="Run setup wizard"
+    )
+    parser.add_argument(
+        "--wizard",
+        action="store_true",
+        help="Run setup wizard (alias for --setup)"
+    )
+    parser.add_argument(
         "--provider",
         type=str,
-        choices=["openai", "anthropic"],
+        choices=["openai", "anthropic", "google", "groq"],
         help="LLM provider to use"
     )
     parser.add_argument(
@@ -133,6 +143,12 @@ async def main():
     
     args = parser.parse_args()
     
+    # Handle setup wizard
+    if args.setup or args.wizard:
+        from lumina.wizard import run_wizard
+        success = run_wizard()
+        sys.exit(0 if success else 1)
+    
     # Load config
     config = LuminaConfig.from_env()
     
@@ -162,10 +178,17 @@ async def main():
     
     # Initialize agent
     try:
+        # Validate config
+        config.validate()
         agent = Lumina(config=config, enable_memory=config.enable_memory)
+    except ValueError as e:
+        console.print(f"\n[bold red]Configuration Error:[/bold red]")
+        console.print(f"[yellow]{str(e)}[/yellow]")
+        sys.exit(1)
     except Exception as e:
         console.print(f"[bold red]Failed to initialize Lumina:[/bold red] {str(e)}")
-        console.print("\n[yellow]Make sure you have set up your .env file with API keys.[/yellow]")
+        console.print("\n[cyan]Try running setup wizard:[/cyan]")
+        console.print("[cyan]  python -m lumina.wizard[/cyan]\n")
         sys.exit(1)
     
     # Run task or interactive mode
