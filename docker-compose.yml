@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  lumina:
+    build: .
+    container_name: lumina-agent
+    environment:
+      - LUMINA_PROVIDER=${LUMINA_PROVIDER:-openai}
+      - LUMINA_MODEL=${LUMINA_MODEL:-gpt-4-turbo-preview}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - LUMINA_MAX_ITERATIONS=${LUMINA_MAX_ITERATIONS:-10}
+      - LUMINA_TEMPERATURE=${LUMINA_TEMPERATURE:-0.7}
+      - LUMINA_VERBOSE=${LUMINA_VERBOSE:-true}
+    volumes:
+      - ./logs:/app/logs
+      - ./memory:/app/memory
+      - ./data:/app/data
+    stdin_open: true
+    tty: true
+    command: python -m lumina.cli
